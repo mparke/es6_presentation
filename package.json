@@ -1,0 +1,23 @@
+{
+  "name": "ES6-Presentation",
+  "version": "0.0.1",
+  "devDependencies": {
+    "gulp": "3.8.10",
+    "vinyl-source-stream":"latest",
+    "vinyl-buffer": "latest",
+    "gulp-sourcemaps": "latest",
+    "gulp-concat": "latest",
+    "gulp-uglify": "latest",
+    "gulp-imagemin": "latest",
+    "gulp-less": "latest",
+    "gulp-csso": "latest",
+    "del": "latest",
+    "gulp-rename": "latest",
+    "browserify": "8.1.3",
+    "6to5ify": "latest",
+    "run-sequence": "latest"
+  },
+  "dependencies": {
+    "reveal.js": "3.0.0"
+  }
+}

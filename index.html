@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>ES6</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="public/css/reveal.css">
+    <link rel="stylesheet" href="public/css/black.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="public/css/zenburn.css">
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>ES6</h1>
+        </section>
+        <section>
+          <section>
+            <h2>let is the new var</h2>
+          </section>
+          <section>
+            <p>var</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+function example() {
+  console.log(func_level);  // undefined
+  console.log(block_level); // undefined
+  var func_level = 10;
+
+  if (true) {
+    var block_level = 20;
+  }
+
+  console.log(func_level); // 10
+  console.log(block_level); // 20
+}
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>let</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+function example() {
+  console.log(func_level);  // Reference Error
+  console.log(block_level); // Reference Error
+  let func_level = 10;
+
+  if (true) {
+    let block_level = 20;
+    console.log(block_level); // 20
+  }
+
+  console.log(func_level);  // 10
+  console.log(block_level); // Reference Error
+}
+              </code>
+            </pre>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h3>const</h3>
+          </section>
+          <section>
+            <p>immutable variables</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+let mutable = 'hello';
+const immutable = true;
+
+mutable = 'world'; // ok
+immutable = false; // TypeError
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>const objects</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+const obj = { value: 10 };
+obj = {};                   // TypeError
+
+obj.value = 20;             // ok
+              </code>
+            </pre>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h3>fat arrow</h3>
+          </section>
+          <section>
+            <div class="fragment">
+              <p>plain anonymous function</p>
+              <pre>
+                <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+arr.forEach(function(item, index, arr) {
+  console.log(item);
+});
+                </code>
+              </pre>
+            </div>
+            <div class="fragment">
+              <p>fat arrow inline</p>
+              <pre>
+                <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+arr.forEach((item, index, arr) => console.log(item));
+                </code>
+              </pre>
+            </div>
+            <div class="fragment">
+              <p>fat arrow statement body</p>
+              <pre>
+                <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+arr.forEach((item, index, arr) => {
+  console.log(item)
+});
+                </code>
+              </pre>
+            </div>
+          </section>
+          <section>
+            <p>lexical this</p>
+            <pre class="fragment">
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+var _this = this;
+arr.forEach(function(item, index, arr) {
+  _this.print(item);
+});
+              </code>
+            </pre>
+            <pre class="fragment">
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+arr.forEach(function(item, index, arr) {
+  this.print(item);
+}.bind(this));
+              </code>
+            </pre>
+            <pre class="fragment">
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+arr.forEach((item, index, arr) => {
+  this.print(item) // has access to this
+});
+              </code>
+            </pre>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h3>enhanced object literals</h3>
+          </section>
+          <section>
+            <p>methods</p>
+            <pre class="fragment">
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+var obj = {
+  method: function() {
+    // ...
+  }
+};
+
+              </code>
+            </pre>
+            <pre class="fragment">
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+let obj = {
+  method() {
+    // ...
+  }
+};
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>property value shorthands</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+let x = 10;
+let y = 20;
+let obj = { x, y };
+
+// equivalent to
+var obj = { x: x, y: y };
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>computed property keys</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+let key = 'dynamic_key';
+let obj = {
+  ['h' + 'ello']() {
+    return 'hi';
+  },
+  [key]() {
+    return 'world';
+  }
+}
+
+console.log(obj.hello());       // hi
+console.log(obj.dynamic_key()); // world
+              </code>
+            </pre>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h3>classes</h3>
+          </section>
+          <section>
+            <p>module pattern</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+function MyClass() {
+  function privateMethod() {}
+  function publicMethod() {}
+  return {
+    publicMethod: publicMethod
+  };
+}
+var obj = MyClass();
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>prototype pattern</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+function MyClass() {}
+MyClass.prototype.publicMethod = function() {};
+var obj = new MyClass();
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>prototype chaining</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+function MyClass() {}
+MyClass.prototype.parentMethod = function() {};
+
+var MySubClass = inherit(MyClass, function MySubClass() {
+  MyClass.prototype.constructor.call(this);
+});
+MySubClass.prototype.childMethod = function() {};
+
+var obj = new MySubClass();
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>new prototypal classes</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+class MyClass {
+  constructor() {
+    // ...
+  }
+}
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>with extends and super</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+class MySubClass extends MyClass {
+  constructor() {
+    super();
+  }
+}
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>explicit prototype</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+let obj = {};
+class MySubClass prototype obj {
+  constructor() {
+    // ...
+  }
+}
+              </code>
+            </pre>
+          </section>
+        </section>
+      </div>
+    </div>
+    <script src="public/js/head.min.js"></script>
+    <script src="public/js/reveal.js"></script>
+    <script>
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { 
+            src: 'public/js/classList.js',
+            condition: function() { return !document.body.classList; } 
+          },
+          { 
+            src: 'public/js/highlight.js',
+            async: true,
+            condition: function() { return !!document.querySelector( 'pre code' ); },
+            callback: function() { hljs.initHighlightingOnLoad(); }
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>
