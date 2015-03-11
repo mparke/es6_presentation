@@ -297,6 +297,224 @@ class MySubClass prototype obj {
             </pre>
           </section>
         </section>
+        <section>
+          <section>
+            <h3>modules</h3>
+          </section>
+          <section>
+            <p>namespacing</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+window.Namespace = { Modules: {} };
+
+(function(Namespace) {
+  Namespace.Modules.MyClass = function() {};
+})(window.Namespace = window.Namespace || {});
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>commonjs</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+// myclass.js
+module.exports = function() {};
+
+var MyClass = require('myclass');
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>amd</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+define('MyClass', ['dependency'], function(dependency) {
+  return {
+    // ...
+  };
+});
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>exports (multiple)</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+// src.js
+export let x = 2;
+export function square(x) { return x * x };
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>imports</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+// app.js
+import { x, square } from 'src';
+console.log(x);         // 2
+console.log(square(x)); // 4
+
+// or
+import * as src from 'src';
+console.log(src.x);             // 2
+console.log(src.square(src.x)); // 4
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>default export (singular)</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+// func.js
+export default function() { // ... };
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>import the default</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+// app.js
+import func from 'func';
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>system loader</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+// src/myclass.js
+export class MyClass {
+  constructor() {
+    this.val = 'woo';
+  }
+}
+
+System.import('src/myclass').then(function(m) {
+  console.log(new m.MyClass().val); // woo
+});
+              </code>
+            </pre>
+            <p><a href="https://github.com/systemjs/systemjs">systemjs</a></p>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h3>template strings</h3>
+          </section>
+          <section>
+            <p>concatenation / escape</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+// with vars
+var value = 10;
+var message = 'Total Amount: ' + value + ' dollars.'; 
+
+// multi line
+var message = 'when I want to write a ' +
+  'really long string I have to go and ' +
+  'use pluses to concatenate every line ' +
+  'and or variables.';
+
+// multi line escape
+var message = 'when I want to write a '  \
+  'really long string I have to go and ' \ 
+  'escape characters.';
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>array join</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+var value = 10;
+var message = [
+  'When I want to write a multi ',
+  'line string. Or one with a value: ',
+  value
+].join('');
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>template strings</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+// message
+let value = 10;
+let message = `When I want to write
+  a multi line string. Or one with
+  a value: ${value}, I can use
+  backticks and templating.`;
+
+// html
+let value = 10;
+let $input = $(`&ltinput type="text" value=${value}&gt`);
+              </code>
+            </pre>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h3>destructuring</h3>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h3>defaults, rest, &amp spread</h3>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h3>iterators and for...of</h3>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h3>generators</h3>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h3>comprehensions</h3>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h3>map &amp weak map</h3>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h3>set &amp weak set</h3>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h3>proxies</h3>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h3>symbols</h3>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h3>promises</h3>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h3>other</h3>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h3>okay, cool, but when?</h3>
+          </section>
+        </section>
       </div>
     </div>
     <script src="public/js/head.min.js"></script>
@@ -314,11 +532,11 @@ class MySubClass prototype obj {
 
         // Optional reveal.js plugins
         dependencies: [
-          { 
+          {
             src: 'public/js/classList.js',
-            condition: function() { return !document.body.classList; } 
+            condition: function() { return !document.body.classList; }
           },
-          { 
+          {
             src: 'public/js/highlight.js',
             async: true,
             condition: function() { return !!document.querySelector( 'pre code' ); },
