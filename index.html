@@ -97,6 +97,51 @@ obj.value = 20;             // ok
         </section>
         <section>
           <section>
+            <h3>symbols, a new primitive</h3>
+          </section>
+          <section>
+            <p>basic syntax</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+let sym1 = Symbol();
+
+let sym2 = Symbol('description'); // optional description
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>unique</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+Symbol('foo') === Symbol('foo') // false
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>built in symbols</p>
+            <div class="fragment">
+              <pre>
+                <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+Symbol.iterator // returns the default iterator for an object
+                </code>
+              </pre>
+            </div>
+            <div class="fragment">
+              <pre>
+                <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+Symbol.hasInstance        // instanceof
+Symbol.isConcatSpreadable // Array.prototype.concat
+Symbol.isRegExp           // regexp
+Symbol.toPrimitive        // object to primitive
+Symbol.toStringTag        // Object.prototype.toString
+Symbol.unscopables        // environment bindings
+                </code>
+              </pre>
+            </div>
+          </section>
+        </section>
+        <section>
+          <section>
             <h3>fat arrow</h3>
           </section>
           <section>
@@ -569,31 +614,30 @@ console.log(second); // 20
             <h3>comprehensions</h3>
           </section>
           <section>
-            <div class="fragment">
-              <p>basic syntax</p>
-              <pre>
-                <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+            <p>basic syntax</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
 let arr = [1, 2, 3];
 
 [for (i of arr) i * i] // [1, 4, 9]
-                </code>
-              </pre>
-            </div>
-            <div class="fragment">
-              <p>combining</p>
-              <pre>
-                <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>combining</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
 let numbers = [1, 2, 3];
 let letters = ['a', 'b', 'c'];
 
 [for (x of numbers) for (y of letters) x + y]; // ['1a', '2b', '3c']
-                </code>
-              </pre>
-            </div>
-            <div class="fragment">
-              <p>nested</p>
-              <pre>
-                <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>nested</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
 let numbers = [1, 2, 3];
 let letters = ['a', 'b', 'c'];
 
@@ -603,9 +647,8 @@ let letters = ['a', 'b', 'c'];
 //  ['2a', '2b', '2c'],
 //  ['3a', '3b', '3c']
 // ]
-                </code>
-              </pre>
-            </div>
+              </code>
+            </pre>
           </section>
         </section>
         <section>
@@ -624,10 +667,9 @@ console.log(fn(10)); // 20
             </pre>
           </section>
           <section>
-            <div class="fragment">
-              <p>variable arguments</p>
-              <pre>
-                <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+            <p>variable arguments</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
 function fn(x) {
   console.log(x);            // 1
   console.log(arguments[1]); // hello
@@ -635,21 +677,20 @@ function fn(x) {
   console.log(Array.prototype.slice.call(arguments, 1)); // ['hello', 'world']
 }
 fn(1, 'hello', 'world');
-                </code>
-              </pre>
-            </div>
-            <div class="fragment">
-              <p>rest</p>
-              <pre>
-                <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>rest</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
 function fn(x, ...y) {
   console.log(Array.isArray(y)); // true
   return x + y.length;
 }
 console.log(fn(1, 'hello', 'world')); // 3
-                </code>
-              </pre>
-            </div>
+              </code>
+            </pre>
           </section>
           <section>
             <p>spread</p>
@@ -921,18 +962,6 @@ for (let x of iterTree(tree)) {
         </section>
         <section>
           <section>
-            <h3>proxies</h3>
-          </section>
-       
-        </section>
-        <section>
-          <section>
-            <h3>symbols</h3>
-          </section>
-       
-        </section>
-        <section>
-          <section>
             <h3>promises</h3>
           </section>
        
@@ -941,12 +970,33 @@ for (let x of iterTree(tree)) {
           <section>
             <h3>other</h3>
           </section>
-       
+          <section>
+            <p class="fragment">metaprogramming with proxies and reflect api</p>
+            <p class="fragment">math, number, string api additions</p>
+            <p class="fragment">binary / octal literals</p>
+            <p class="fragment">tail call optimization</p>
+          </section>
         </section>
         <section>
           <section>
-            <h3>okay, cool, but when?</h3>
+            <h3>links</h3>
           </section>
+          <section>
+            <p><a href="http://kangax.github.io/compat-table/es6/">kangax compatability table</a></p>
+            <p><a href="https://www.chromestatus.com/features">chrome status dashboard</a></p>
+            <p><a href="https://www.mozilla.org/en-US/firefox/releases/">firefox release notes</a></p>
+            <p><a href="https://babeljs.io/">babeljs</a></p>
+          </section>
+          <section>
+            <p><a href="http://wiki.ecmascript.org/doku.php?id=harmony:specification_drafts">harmony drafts</a></p>
+            <p><a href="http://www.2ality.com/">2ality JavaScript and More ( blog )</a></p>
+            <p><a href="http://exploringjs.com/">Exploring JS ( book from 2ality )</a></p>
+            <p><a href="http://raganwald.com/">reganwald ( blog )</a></p>
+            <p><a href="https://github.com/getify/You-Dont-Know-JS">You Dont Know JS (book - github)</a></p>
+          </section>
+        </section>
+        <section>
+          <h3>the end</h3>
         </section>
       </div>
     </div>
