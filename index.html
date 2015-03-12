@@ -409,7 +409,7 @@ System.import('src/myclass').then(function(m) {
               <code class="javascript" data-trim contenteditable style="font-size: 22px;">
 // with vars
 var value = 10;
-var message = 'Total Amount: ' + value + ' dollars.'; 
+var message = 'Total Amount: ' + value + ' dollars.';
 
 // multi line
 var message = 'when I want to write a ' +
@@ -419,7 +419,7 @@ var message = 'when I want to write a ' +
 
 // multi line escape
 var message = 'when I want to write a '  \
-  'really long string I have to go and ' \ 
+  'really long string I have to go and ' \
   'escape characters.';
               </code>
             </pre>
@@ -459,56 +459,489 @@ let $input = $(`&ltinput type="text" value=${value}&gt`);
           <section>
             <h3>destructuring</h3>
           </section>
-        </section>
-        <section>
           <section>
-            <h3>defaults, rest, &amp spread</h3>
+            <p>object destructuring (extracting)</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+let obj = { value: 10, name: 'matt' };
+
+let { value: v, name: n } = obj;
+console.log(v); // 10
+console.log(n): // matt
+              </code>
+            </pre>
           </section>
-        </section>
-        <section>
           <section>
-            <h3>iterators and for...of</h3>
+            <p>array destructuring (extracting)</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+let arr = [10, 20];
+
+let [x, y] = arr;
+console.log(x); // 10
+console.log(y); // 20
+
+const [x, y] = arr;
+console.log(x); // 10
+console.log(y); // 20
+
+var [x, y] = arr;
+console.log(x); // 10
+console.log(y); // 20
+              </code>
+            </pre>
           </section>
-        </section>
-        <section>
           <section>
-            <h3>generators</h3>
+            <p>destructuring in function parameters (extracting)</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+function fn([x]) { console.log(x); }
+fn([10]); // 10
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>destructuring and coercion for primitives</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+let { length: len } = 'abc';
+console.log(len); // 3
+
+let { toString: str } = 10;
+console.log(str); // '10'
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>destructuring and computed keys</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+const KEY = Symbol()
+let obj = { [KEY]: 'hello' };
+let { [KEY]: x } = obj;
+console.log(x); // hello
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>destructuring and assignment</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+let obj = {};
+let { value: obj.prop } = { value: 10 };
+console.log(obj); // { prop: 10 };
+
+let arr = [];
+let { value: arr[0] } = { value: 10 };
+console.log(arr); // [10]
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>destructuring and for...of</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+let obj = { one: 1, two: 2 };
+for (let [key, value] of obj) {
+  console.log(`${key} is ${value}`); // one is 1, two is 2
+}
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>destructuring and multiple return values</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+function getValues() {
+  // ...
+  return { first: 10, second: 20 }; 
+}
+
+let { first, second } = getValues();
+console.log(first);  // 10
+console.log(second); // 20
+              </code>
+            </pre>
           </section>
         </section>
         <section>
           <section>
             <h3>comprehensions</h3>
           </section>
+          <section>
+            <div class="fragment">
+              <p>basic syntax</p>
+              <pre>
+                <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+let arr = [1, 2, 3];
+
+[for (i of arr) i * i] // [1, 4, 9]
+                </code>
+              </pre>
+            </div>
+            <div class="fragment">
+              <p>combining</p>
+              <pre>
+                <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+let numbers = [1, 2, 3];
+let letters = ['a', 'b', 'c'];
+
+[for (x of numbers) for (y of letters) x + y]; // ['1a', '2b', '3c']
+                </code>
+              </pre>
+            </div>
+            <div class="fragment">
+              <p>nested</p>
+              <pre>
+                <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+let numbers = [1, 2, 3];
+let letters = ['a', 'b', 'c'];
+
+[for (x of numbers) [for (y of letters) x + y]]; 
+// [
+//  ['1a', '1b', '1c']
+//  ['2a', '2b', '2c'],
+//  ['3a', '3b', '3c']
+// ]
+                </code>
+              </pre>
+            </div>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h3>defaults, rest, &amp spread</h3>
+          </section>
+          <section>
+            <p>function parameter defaults</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+function fn(x, y=10) {
+  return x + y;
+}
+console.log(fn(10)); // 20
+              </code>
+            </pre>
+          </section>
+          <section>
+            <div class="fragment">
+              <p>variable arguments</p>
+              <pre>
+                <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+function fn(x) {
+  console.log(x);            // 1
+  console.log(arguments[1]); // hello
+  console.log(arguments[2]); // world
+  console.log(Array.prototype.slice.call(arguments, 1)); // ['hello', 'world']
+}
+fn(1, 'hello', 'world');
+                </code>
+              </pre>
+            </div>
+            <div class="fragment">
+              <p>rest</p>
+              <pre>
+                <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+function fn(x, ...y) {
+  console.log(Array.isArray(y)); // true
+  return x + y.length;
+}
+console.log(fn(1, 'hello', 'world')); // 3
+                </code>
+              </pre>
+            </div>
+          </section>
+          <section>
+            <p>spread</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+function fn(x, y, z) {
+  console.log(x); // 1
+  console.log(y); // 2
+  console.log(z); // 3
+}
+fn(...[1, 2, 3]);
+              </code>
+            </pre>
+          </section>
         </section>
         <section>
           <section>
             <h3>map &amp weak map</h3>
+          </section>
+          <section>
+            <p>map basic operations</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+let m = new Map();
+m.set(1, 'one')
+.set('two', 2)
+.set({}, 'three');
+
+console.log(m.size);          // 3
+
+console.log(m.has('two'));    // true
+console.log(m.delete('two')); // true
+console.log(m.has('two'));    // false
+
+m.clear();
+console.log(m.size);          // 0
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>map array pairs</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+let m = new Map([
+  [1, 'one'],
+  [2, 'two'],
+  [3, 'three']
+]);
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>map iteration ( order preserved )</p>
+            <div class="fragment">
+              <pre>
+                <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+for (let key of map.keys()) {
+  console.log(key);
+}
+// 1, 2, 3
+                </code>
+              </pre>
+            </div>
+            <div class="fragment">
+              <pre>
+                <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+for (let value of map.values()) {
+  console.log(value);
+}
+// 'one', 'two', 'three'
+                </code>
+              </pre>
+            </div>
+            <div class="fragment">
+              <pre>
+                <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+// entries === Symbol.iterator
+for (let entry of map.entries()) {
+  console.log(entry[0], entry[1]);
+}
+// 1 'one'
+// 2 'two'
+// 3 'three'
+                </code>
+              </pre>
+            </div>
+          </section>
+          <section>
+            <p>map iteration and destructuring</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+for (let [key, value] of map) {
+  console.log(key, value);
+}
+
+// 1 'one'
+// 2 'two'
+// 3 'three'
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>map for each</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+map.forEach((value, key) => console.log(value, key));
+
+// no map or filter, so:
+[...map].map((value, index, arr) => console.log(value));
+
+              </code>
+            </pre>
+          </section>
+          <section>
+            <div class="fragment">
+              <p>weak map</p>
+              <pre>
+                <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+let wm = new WeakMap();
+
+// set, has, delete
+// no keys, values, entries, or clear
+                </code>
+              </pre>
+            </div>
+            <div class="fragment">
+              <p>weak map, objects must be keys, allows garbage collection</p>
+              <pre>
+                <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+// associating data
+let wm = new WeakMap();
+class MyClass() {
+  constructor() {
+    let _value = 10;
+    wm.set(this, _value)
+  }
+  incr() {
+    wm.set(this, wm.get(this) + 10);
+  }
+} 
+                </code>
+              </pre>
+            </div>
           </section>
         </section>
         <section>
           <section>
             <h3>set &amp weak set</h3>
           </section>
+          <section>
+            <p>set basic operations</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+let s = new Set();
+s.add('hello').add('world').add('hello');
+
+console.log(s.size);         // 2
+console.log(s.has('hello')); // true
+
+s.clear();
+console.log(s.size);         // 0
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>set iteration ( order preserved )</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+let set = new Set(['hello', 'world']);
+
+for (let x of set) {
+  console.log(x);
+}
+
+// hello
+// world
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>converting and unique</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+let set = new Set([1, 2, 3]);
+let arr = [...set]; // 1, 2, 3
+
+let arr = [1, 2, 3, 3, 5, 5];
+let set = new Set([...set]); // 1, 2, 3
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>weak set</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+let ws = new WeakSet();
+
+// add, has, delete
+// no keys, values, entries or clear
+              </code>
+            </pre>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h3>iterators</h3>
+          </section>
+          <section>
+            <p>symbol iterator key</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+let arr = ['a', 'b', 'c'];
+let iter = arr[Symbol.iterator]();
+
+console.log(iter.next()); // { value: 'a', done: false }
+console.log(iter.next()); // { value: 'b', done: false }
+console.log(iter.next()); // { value: 'c', done: false }
+console.log(iter.next()); // { value: undefined, done: true }
+              </code>
+            </pre>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h3>generators</h3>
+          </section>
+          <section>
+            <p>generator sytax</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+function* generatorFn() {
+  yield 1;
+  yield 2;
+}
+
+let genObj = generatorFn();
+console.log(genObj.next()); // { value: 1, done: false }
+console.log(genObj.next()); // { value: 2, done: false }
+console.log(genObj.next()); // { done: true }
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p>generators for iteration ( recursion and yield* )</p>
+            <pre>
+              <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+let tree = [[1, 2], [3, 4], [5, 6]];
+
+function* iterTree(tree) {
+  if (Array.isArray(tree)) {
+    for (let i = 0; i &lt arr.length; i++) {
+      yield* traverse(arr[i]);
+    }
+  } else {
+    yield tree; // leaf
+  }
+}
+
+for (let x of iterTree(tree)) {
+  console.log(x);
+}
+// 1
+// 2
+// 3
+// ...
+              </code>
+            </pre>
+          </section>
         </section>
         <section>
           <section>
             <h3>proxies</h3>
           </section>
+       
         </section>
         <section>
           <section>
             <h3>symbols</h3>
           </section>
+       
         </section>
         <section>
           <section>
             <h3>promises</h3>
           </section>
+       
         </section>
         <section>
           <section>
             <h3>other</h3>
           </section>
+       
         </section>
         <section>
           <section>
