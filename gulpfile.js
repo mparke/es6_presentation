@@ -1,4 +1,6 @@
-var fs = require('fs');
+const fs = require('fs');
+const path = require('path');
+
 var browserify = require('browserify');
 var gulp = require('gulp');
 var source = require('vinyl-source-stream');
@@ -7,10 +9,18 @@ var csso = require('gulp-csso');
 var uglify = require('gulp-uglify');
 var imagemin = require('gulp-imagemin');
 var less = require('gulp-less');
-var path = require('path');
 var del = require('del');
 var rename = require('gulp-rename');
 var runSequence = require('run-sequence');
+
+const gulpNunjucks = require('gulp-nunjucks');
+const nunjucks = require('nunjucks');
+const nunjucksEnv = new nunjucks.Environment(new nunjucks.FileSystemLoader('src/views'));
+
+nunjucksEnv.addGlobal('load_script_text', function (fileName) {
+  return fs.readFileSync(path.join(__dirname, 'src/js/', `${fileName}.js`), 'utf-8');
+});
+
 
 // Configure all your assets here
 var task_manifest = {
@@ -52,7 +62,7 @@ var output_dirs = [];
   var tasks = task_manifest.vendor.tasks;
 
   for (var i = 0; i < tasks.length; i++) {
-    (function(task) {;
+    (function(task) {
       task_names.push(task.name);
       output_dirs.push(task.output_dir);
 
@@ -64,10 +74,18 @@ var output_dirs = [];
   }
 })();
 
+gulp.task('templates', function() {
+  return gulp.src('src/views/index.html')
+    .pipe(gulpNunjucks.compile({}, {
+      env: nunjucksEnv
+    }))
+    .pipe(gulp.dest(path.join(__dirname, 'public')));
+});
+
 gulp.task('clean', function(cb) {
   del(output_dirs, cb);
 });
 
 gulp.task('default', function(callback) {
-  runSequence('clean', task_names, callback);
+  runSequence(task_names, 'templates', callback);
 });

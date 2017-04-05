@@ -1,0 +1,8 @@
+{% macro render() -%}
+  <pre>
+    <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+{# Explicit left align for pre-formatted block #}
+{{ caller() }}
+    </code>
+  </pre>
+{%- endmacro %}

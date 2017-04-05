@@ -1,0 +1,14 @@
+{% import "macros/section.html" as section %}
+{% import "macros/code.html" as code %}
+
+{% call section.render('let is the new var') %}
+  {% call code.render() %}
+    {{ load_script_text('es_2015/let/var') }}
+  {% endcall %}
+{% endcall %}
+
+{% call section.render('let') %}
+  {% call code.render() %}
+    {{ load_script_text('es_2015/let/let') }}
+  {% endcall %}
+{% endcall %}

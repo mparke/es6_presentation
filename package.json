@@ -1,21 +1,23 @@
 {
-  "name": "ES6-Presentation",
+  "name": "javascript_lang_presentation",
   "version": "0.0.1",
   "devDependencies": {
-    "gulp": "3.8.10",
-    "vinyl-source-stream":"latest",
-    "vinyl-buffer": "latest",
-    "gulp-sourcemaps": "latest",
+    "6to5ify": "latest",
+    "browserify": "8.1.3",
+    "del": "latest",
+    "gulp": "^3.8.10",
     "gulp-concat": "latest",
-    "gulp-uglify": "latest",
+    "gulp-csso": "latest",
     "gulp-imagemin": "latest",
     "gulp-less": "latest",
-    "gulp-csso": "latest",
-    "del": "latest",
+    "gulp-nunjucks": "^3.0.0",
     "gulp-rename": "latest",
-    "browserify": "8.1.3",
-    "6to5ify": "latest",
-    "run-sequence": "latest"
+    "gulp-sourcemaps": "latest",
+    "gulp-uglify": "latest",
+    "nunjucks": "^3.0.0",
+    "run-sequence": "latest",
+    "vinyl-buffer": "latest",
+    "vinyl-source-stream": "latest"
   },
   "dependencies": {
     "reveal.js": "3.0.0"

@@ -1,0 +1,73 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>JavaScript Lang</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="public/css/reveal.css">
+    <link rel="stylesheet" href="public/css/black.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="public/css/zenburn.css">
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+<section>
+    <p>let is the new var</p>
+    
+  <pre>
+    <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+
+
+    function example() {
+  console.log(func_level);  // undefined
+  console.log(block_level); // undefined
+  var func_level = 10;
+
+  if (true) {
+    var block_level = 20;
+  }
+
+  console.log(func_level); // 10
+  console.log(block_level); // 20
+}
+
+  
+    </code>
+  </pre>
+  </section><section>
+    <p>let</p>
+    
+  <pre>
+    <code class="javascript" data-trim contenteditable style="font-size: 22px;">
+
+
+    function example() {
+  console.log(func_level);  // Reference Error
+  console.log(block_level); // Reference Error
+  let func_level = 10;
+
+  if (true) {
+    let block_level = 20;
+    console.log(block_level); // 20
+  }
+
+  console.log(func_level);  // 10
+  console.log(block_level); // Reference Error
+}
+
+  
+    </code>
+  </pre>
+  </section>
+</div>
+    </div>
+  </body>
+</html>

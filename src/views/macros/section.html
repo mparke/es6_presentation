@@ -1,0 +1,6 @@
+{% macro render(title) -%}
+  <section>
+    <p>{{ title }}</p>
+    {{ caller() }}
+  </section>
+{%- endmacro %}
